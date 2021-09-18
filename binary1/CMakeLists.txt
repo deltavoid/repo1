@@ -22,7 +22,7 @@ message("CMAKE_CURRENT_LIST_DIR: ${CMAKE_CURRENT_LIST_DIR}")
 # targets and directories
 
 add_executable(binary1
-    main.c
+    binary1.c
 )
 
 target_link_libraries(binary1
