@@ -2,7 +2,7 @@
 
 BUILD_DIR ?= build
 .PHONY: build clean
-default: run
+# default: run
 
 
 build: $(BUILD_DIR)/Makefile
@@ -17,4 +17,4 @@ clean:
 
 
 run: build
-	$(BUILD_DIR)/main/main
+	$(BUILD_DIR)/binary1/binary1
