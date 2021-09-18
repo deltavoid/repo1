@@ -1,0 +1,62 @@
+#
+# This file is open source software, licensed to you under the terms
+# of the Apache License, Version 2.0 (the "License").  See the NOTICE file
+# distributed with this work for additional information regarding copyright
+# ownership.  You may not use this file except in compliance with the License.
+#
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+#
+# Copyright (C) 2018 Scylladb, Ltd.
+#
+
+# We would like to use `find_dependency`, but it is not supported properly until CMake 3.8.
+#include (FindDependencyMacro)
+
+# message("static_lib1 config cmake in begin")
+
+list (APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
+
+
+message("CMAKE_PROJECT_NAME: ${CMAKE_PROJECT_NAME}")
+message("CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
+message("CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}")
+
+message("PROJECT_NAME: ${PROJECT_NAME}")
+message("PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
+message("PROJECT_BINARY_DIR: ${PROJECT_BINARY_DIR}")
+
+message("CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
+message("CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
+message("CMAKE_CURRENT_LIST_DIR: ${CMAKE_CURRENT_LIST_DIR}")
+
+message("CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
+message("CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
+message("CMAKE_TOOLCHAIN_FILE: ${CMAKE_TOOLCHAIN_FILE}")
+
+
+#
+# Dependencies.
+#
+
+# include (StaticLib1Dependencies)
+# set (StdFilesystem_CXX_DIALECT "@StaticLib1_CXX_DIALECT@")
+# static_lib1_find_dependencies ()
+
+if (NOT TARGET Repo1::library1)
+  include ("${CMAKE_CURRENT_LIST_DIR}/Repo1Targets.cmake")
+endif ()
+
+
+# message("static_lib1 config cmake in end")
+

@@ -43,3 +43,61 @@ message("CMAKE_TOOLCHAIN_FILE: ${CMAKE_TOOLCHAIN_FILE}")
 add_subdirectory(library1)
 add_subdirectory(binary1)
 
+
+
+# export
+
+set(CMAKE_INSTALL_INCLUDEDIR include)
+set(CMAKE_INSTALL_LIBDIR lib)
+
+include(CMakePackageConfigHelpers)
+set(install_cmakedir ${CMAKE_INSTALL_LIBDIR}/cmake/repo1)
+
+install(
+    TARGETS
+        library1
+    EXPORT repo1-export
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(
+    EXPORT repo1-export
+    FILE Repo1Targets.cmake
+    NAMESPACE Repo1::
+    DESTINATION ${install_cmakedir}
+)
+
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/Repo1ConfigVersion.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY ExactVersion
+)
+
+
+configure_package_config_file(
+    ${CMAKE_CURRENT_LIST_DIR}/Repo1Config.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/Repo1Config.cmake
+    INSTALL_DESTINATION ${install_cmakedir}
+)
+
+
+export(
+    EXPORT repo1-export
+    FILE ${CMAKE_CURRENT_BINARY_DIR}/Repo1Targets.cmake
+    NAMESPACE Repo1::
+)
+
+export(PACKAGE Repo1)
+
+
+
+#
+# Packaging.
+#
+
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+
+include(CPack)
