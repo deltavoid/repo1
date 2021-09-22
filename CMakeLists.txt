@@ -57,6 +57,7 @@ set(install_cmakedir ${CMAKE_INSTALL_LIBDIR}/cmake/repo1)
 install(
     TARGETS
         library1
+        library1_1
     EXPORT repo1-export
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
