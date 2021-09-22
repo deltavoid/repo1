@@ -1,5 +1,5 @@
 
-# project(binary1)
+# project(library1)
 
 
 
@@ -21,11 +21,13 @@ message("CMAKE_CURRENT_LIST_DIR: ${CMAKE_CURRENT_LIST_DIR}")
 
 # targets and directories
 
-add_executable(binary1
-    binary1.c
+add_library(library1_1 STATIC
+    library1_1.c
 )
-
-target_link_libraries(binary1
-    library1
-    library1_1
+target_include_directories(library1_1
+    PUBLIC
+        # ../../
+        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/../>
+        # $<INSTALL_INTERFACE:include>
+    
 )
