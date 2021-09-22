@@ -28,6 +28,6 @@ target_include_directories(library1_1
     PUBLIC
         # ../../
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/../>
-        # $<INSTALL_INTERFACE:include>
+        $<INSTALL_INTERFACE:include>
     
 )
