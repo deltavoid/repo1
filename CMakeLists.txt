@@ -48,40 +48,26 @@ add_subdirectory(binary1)
 
 # export
 
-set(CMAKE_INSTALL_INCLUDEDIR include)
-set(CMAKE_INSTALL_LIBDIR lib)
+# set(CMAKE_INSTALL_INCLUDEDIR include)
+# set(CMAKE_INSTALL_LIBDIR lib)
 
-include(CMakePackageConfigHelpers)
-set(install_cmakedir ${CMAKE_INSTALL_LIBDIR}/cmake/repo1)
+
+# set(install_cmakedir ${CMAKE_INSTALL_LIBDIR}/cmake/repo1)
 
 install(
     TARGETS
         library1
         library1_1
     EXPORT repo1-export
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION lib/repo1
+    ARCHIVE DESTINATION lib/repo1
 )
 
 install(
     EXPORT repo1-export
     FILE Repo1Targets.cmake
     NAMESPACE Repo1::
-    DESTINATION ${install_cmakedir}
-)
-
-
-write_basic_package_version_file(
-    ${CMAKE_CURRENT_BINARY_DIR}/Repo1ConfigVersion.cmake
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY ExactVersion
-)
-
-
-configure_package_config_file(
-    ${CMAKE_CURRENT_LIST_DIR}/Repo1Config.cmake.in
-    ${CMAKE_CURRENT_BINARY_DIR}/Repo1Config.cmake
-    INSTALL_DESTINATION ${install_cmakedir}
+    DESTINATION lib/cmake/repo1
 )
 
 
@@ -95,12 +81,54 @@ export(PACKAGE Repo1)
 
 
 
+
+include(CMakePackageConfigHelpers)
+
+configure_package_config_file(
+    ${CMAKE_CURRENT_LIST_DIR}/Repo1Config.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/Repo1Config.cmake
+    INSTALL_DESTINATION lib/cmake/repo1
+)
+
+# the config.cmake here is not suitable for installation
+install(
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/Repo1Config.cmake
+  DESTINATION lib/cmake/repo1
+)
+
+
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/Repo1ConfigVersion.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY ExactVersion
+)
+
+install(
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/Repo1ConfigVersion.cmake
+  DESTINATION "lib/cmake/repo1"
+)
+
+
+install(
+  FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/library1/public/library1.h
+  DESTINATION "include/repo1/library1/public"
+)
+
+install(
+  FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/library1_1/public/library1_1.h
+  DESTINATION "include/repo1/library1_1/public"
+)
+
+
+
 #
 # Packaging.
 #
 
-set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
-set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
-set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+# set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+# set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+# set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 
-include(CPack)
+# include(CPack)
