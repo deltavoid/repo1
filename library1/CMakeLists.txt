@@ -29,5 +29,4 @@ target_include_directories(library1
         # ../../
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/../>
         $<INSTALL_INTERFACE:include>
-    
 )
